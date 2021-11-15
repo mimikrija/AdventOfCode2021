@@ -1,0 +1,4 @@
+.vscode/
+.venv/
+*.code-workspace
+inputs/*ex
