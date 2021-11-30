@@ -2,3 +2,4 @@
 .venv/
 *.code-workspace
 inputs/*ex
+__*
