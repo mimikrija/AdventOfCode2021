@@ -7,7 +7,7 @@ def get_input(file_name, numbers=False, separator='\n'):
         try:
             return list(map(int, input_data))
         except:
-            pass
+            raise ValueError('Unable to convert data into integers')
     else:
         return input_data
 
