@@ -1,10 +1,16 @@
 # :christmas_tree: :snake: :sparkles: Maja's Advent of Code 2021 :sparkles: :snake: :christmas_tree:
 
-Ho, ho, ho, welcome to my 2021 Advent of Code repository!
+Ho, ho, ho, welcome to my [![About](https://img.shields.io/badge/Advent%20of%20Code%20🎄-2021-brightgreen)](https://adventofcode.com/2021/about) repository!
+
 This year, my goals are:
 
-1. complete first 10 puzzles
+1. complete first 10 puzzles / days
 2. collect at least 25 stars
+
+Current status:
+
+[![Days completed](https://img.shields.io/badge/day%20📅-1-blue)](https://github.com/mimikrija/AdventOfCode2021/)
+[![Stars](https://img.shields.io/badge/stars%20⭐-2-yellow)](https://adventofcode.com/2020/stats)
 
 My AoC repositories: [2015](https://github.com/mimikrija/AdventOfCode2015), [2016](https://github.com/mimikrija/AdventOfCode2016), [2017](https://github.com/mimikrija/AdventOfCode2017), [2018](https://github.com/mimikrija/AdventOfCode2018), [2019](https://github.com/mimikrija/AdventOfCode2019), [2020](https://github.com/mimikrija/AdventOfCode2020)
 
