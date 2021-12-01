@@ -1,10 +1,10 @@
-# title
+# Day 1: Sonar Sweep
 
-from aocd import data, submit
+from santas_little_helpers import *
 
-print(data)
-#numbers = map(int, data)
+sea_depths = get_input('inputs/01.txt', True)
 
+party_1 = sum(first > second for first, second in zip(sea_depths[1:], sea_depths))
+party_2 = sum(sum(sea_depths[n+1:n+4]) > sum(sea_depths[n:n+3]) for n, depth in enumerate(sea_depths[:-3]))
 
-#submit(party_1)
-#submit(party_2, part=2)
+print_solutions(party_1, party_2)
