@@ -1,42 +1,31 @@
-# 
+# Day 2: Dive!
 
 from santas_little_helpers import *
 
-MOVE = {
+def find_position(instructions, is_part_2=False):
+    MOVE = {
     'forward': 1+0j,
-    'down': 0-1j,
-    'up': 0+1j,
-}
+    'down': 0+1j,
+    'up': 0-1j,
+    }
 
-MOVE_AIM = {
-    'forward': 0,
-    'down': 1,
-    'up': -1,
-}
+    position = 0+0j
+    aim = 0
+    depth = 0
+    for direction, qt in instructions:
+        position += MOVE[direction]*qt
+        aim += MOVE[direction].imag*qt
+        if is_part_2 and direction == 'forward':
+            depth += aim*qt
+            position = complex(position.real, depth)
+    return position
 
-data = get_input('inputs/02.txt')
+solution_format = lambda x: int(x.real * x.imag)
 
-position = 0+0j
 
-for instruction in data:
-    where, qt = instruction.split()
-    qt = int(qt)
-    position += MOVE[where]*qt
-    
-party_1 = int(position.real * position.imag)
+raw_instructions = get_input('inputs/02.txt')
 
-print_solutions(party_1)
+instructions = [(line.split()[0], int(line.split()[1])) for line in raw_instructions]
+party_1, party_2 = (solution_format(find_position(instructions, is_part_2)) for is_part_2 in {False, True})
 
-position = 0+0j
-aim = 0
-
-for instruction in data:
-    where, qt = instruction.split()
-    qt = int(qt)
-    aim += MOVE_AIM[where]*qt
-    if where == 'forward':
-        position += complex(qt, aim*qt)
-print(aim)
-
-party_2 = int(position.real * position.imag)
 print_solutions(party_1, party_2)
