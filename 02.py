@@ -1,6 +1,7 @@
 # Day 2: Dive!
 
 from santas_little_helpers import *
+from itertools import accumulate
 
 def find_position(instructions, is_part_2=False):
     MOVE = {
@@ -9,16 +10,13 @@ def find_position(instructions, is_part_2=False):
     'up': 0-1j,
     }
 
-    position = 0+0j
-    aim = 0
-    depth = 0
-    for direction, qt in instructions:
-        position += MOVE[direction]*qt
-        aim += MOVE[direction].imag*qt
-        if is_part_2 and direction == 'forward':
-            depth += aim*qt
-            position = complex(position.real, depth)
-    return position
+    final_position = sum(MOVE[direction]*qt for direction, qt in instructions)
+    if not is_part_2:
+        return final_position
+
+    aims = accumulate([MOVE[direction].imag*qt for direction, qt in instructions])
+    depth = sum(aim*qt for (direction, qt), aim in zip(instructions, list(aims)) if direction == 'forward')
+    return complex(final_position.real, depth)
 
 solution_format = lambda x: int(x.real * x.imag)
 
