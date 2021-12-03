@@ -15,12 +15,11 @@ epsilon = gamma.translate(str.maketrans('01', '10'))
 party_1 = consumption(gamma, epsilon)
 
 
-oxygen = list(data)
-scrubber = list(data)
 # party 2
 
 
 scrubber = list(data)
+oxygen = list(data)
 for column in range(size):
     stupac = ''.join(c[column] for c in scrubber)
     if len(scrubber) > 1:
@@ -34,7 +33,6 @@ for column in range(size):
 
 
 
-oxygen = list(data)
 for column in range(size):
     stupac = ''.join(c[column] for c in oxygen)
     if len(oxygen) > 1:
@@ -43,7 +41,7 @@ for column in range(size):
             least = '0'
         temp = list(oxygen)
         oxygen = [number for number in temp if number[column] == least]
-print(oxygen, scrubber)
+
 scrubber = int(scrubber[0],2)
 oxygen = int(oxygen[0], 2)
 print(scrubber, oxygen)
