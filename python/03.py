@@ -2,23 +2,17 @@
 from santas_little_helpers import *
 from collections import Counter
 
-consumption = lambda gamma, epsilon: gamma * epsilon
+consumption = lambda x, y: int(x, 2) * int(y, 2)
 
 data = get_input('inputs/03.txt')
-
 size = len(data[0])
 
 
-gamma = ''
-epsilon = ''
-for stupac in zip(*data):
-    gamma += Counter(stupac).most_common()[0][0]
-    epsilon += Counter(stupac).most_common()[-1][0] 
+gamma = ''.join(Counter(column).most_common()[0][0] for column in zip(*data))
+# epsilon is just an inverse of gamma
+epsilon = gamma.translate(str.maketrans('01', '10'))
 
-gamma = int(gamma, 2)
-epsilon = int(epsilon, 2)
 party_1 = consumption(gamma, epsilon)
-
 
 
 oxygen = list(data)
