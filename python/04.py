@@ -1,3 +1,5 @@
+# Day 4: Giant Squid
+
 from santas_little_helpers import *
 from collections import deque
 
@@ -6,48 +8,40 @@ class Card:
         self.rows = [[int(number) for number in row.split()] for row in raw_card.split('\n')]
         self.columns = list(zip(*self.rows))
         self.all_numbers = [num for row in self.rows for num in row]
+        self.score = 0
+        self.won = False
 
-    def is_bingo(self, drawn_numbers):
+    def bingo_hit(self, drawn_numbers):
         for card_element in self.rows + self.columns:
-            if all(card_number in drawn_numbers for card_number in card_element):
+            if all(card_number in drawn_numbers for card_number in card_element) and not self.won:
+                self.score = self.get_score(drawn_numbers)
+                self.won = True
                 return True
         return False
     
     def get_score(self, drawn_numbers):
-        return sum(number for number in self.all_numbers if number not in drawn_numbers)
+        return sum(number for number in self.all_numbers if number not in drawn_numbers)*drawn_numbers[-1]
 
 
 
 data = get_input('inputs/04.txt', False, '\n\n')
-#data = get_input('inputs/04-ex.txt', False, '\n\n')
 
 numbers_to_draw = list(map(int, data[0].split(',')))
 
 
-bingo_cards = []
-for raw_card in data[1:]:
-    card = Card(raw_card)
-    bingo_cards.append(card)
+bingo_cards = [Card(raw_card) for raw_card in data[1:]]
 
-drawn_numbers = numbers_to_draw[:4]
-all_numbers = deque(numbers_to_draw[4:])
-
-def play_bingo():
+def play_bingo(bingo_cards, numbers_to_draw):
+    so_far_drawn_numbers = numbers_to_draw[:4]
+    all_numbers = deque(numbers_to_draw[4:])
     winning_cards = []
     while all_numbers:
-        current_number = all_numbers.popleft()
-        drawn_numbers.append(current_number)
-        for card_number, card in enumerate(bingo_cards, 1):
-            if card.is_bingo(drawn_numbers) and card not in winning_cards:
-                winning_cards.append(card)
-                if len(winning_cards) == len(bingo_cards):
-                    return winning_cards[-1].get_score(drawn_numbers)*current_number
-            
-        # for card_number, card in enumerate(bingo_cards, 1):
-        #     if card.is_bingo(drawn_numbers):
-        #         return current_number * card.get_score(drawn_numbers)
+        so_far_drawn_numbers.append(all_numbers.popleft())
+        winning_cards += [card for card in bingo_cards if card.bingo_hit(so_far_drawn_numbers)]
 
-party_1 = play_bingo()
+    return winning_cards[0].score, winning_cards[-1].score
 
-print_solutions(party_1)
 
+party_1, party_2 = play_bingo(bingo_cards, numbers_to_draw)
+
+print_solutions(party_1, party_2)
