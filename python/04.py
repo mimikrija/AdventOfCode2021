@@ -33,12 +33,19 @@ drawn_numbers = numbers_to_draw[:4]
 all_numbers = deque(numbers_to_draw[4:])
 
 def play_bingo():
+    winning_cards = []
     while all_numbers:
         current_number = all_numbers.popleft()
         drawn_numbers.append(current_number)
         for card_number, card in enumerate(bingo_cards, 1):
-            if card.is_bingo(drawn_numbers):
-                return current_number * card.get_score(drawn_numbers)
+            if card.is_bingo(drawn_numbers) and card not in winning_cards:
+                winning_cards.append(card)
+                if len(winning_cards) == len(bingo_cards):
+                    return winning_cards[-1].get_score(drawn_numbers)*current_number
+            
+        # for card_number, card in enumerate(bingo_cards, 1):
+        #     if card.is_bingo(drawn_numbers):
+        #         return current_number * card.get_score(drawn_numbers)
 
 party_1 = play_bingo()
 
