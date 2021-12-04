@@ -1,7 +1,6 @@
 # Day 4: Giant Squid
 
 from santas_little_helpers import *
-from collections import deque
 
 class Card:
     def __init__(self, raw_card):
@@ -32,11 +31,9 @@ numbers_to_draw = list(map(int, data[0].split(',')))
 bingo_cards = [Card(raw_card) for raw_card in data[1:]]
 
 def play_bingo(bingo_cards, numbers_to_draw):
-    so_far_drawn_numbers = numbers_to_draw[:4]
-    all_numbers = deque(numbers_to_draw[4:])
     winning_cards = []
-    while all_numbers:
-        so_far_drawn_numbers.append(all_numbers.popleft())
+    for pos, _ in enumerate(numbers_to_draw, 5):
+        so_far_drawn_numbers = numbers_to_draw[:pos]
         winning_cards += [card for card in bingo_cards if card.bingo_hit(so_far_drawn_numbers)]
 
     return winning_cards[0].score, winning_cards[-1].score
