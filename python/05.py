@@ -22,13 +22,17 @@ def line_from_endpoints(starts, ends, diagonals=False):
     elif is_45(sx, ex, sy, ey) and diagonals:
         return {(x,  y) for x, y in zip(range(sx, ex+dx, dx), range(sy, ey+dy, dy))}
     else:
-        return {}
+        return set()
 
 def count_overlaps(end_points, diagonals=False):
     lines = [line_from_endpoints(starts, ends, diagonals) for starts, ends in end_points]
-    all_points = [point for line in lines for point in line]
-    points_count = Counter(all_points)
-    return sum(freq >=2 for _, freq in points_count.most_common())
+    at_least_once = set()
+    at_least_twice = set()
+    for line in lines:
+        at_least_twice |= at_least_once & line
+        at_least_once |= line
+    return len(at_least_twice)
+
 
 end_points = []
 for line in data:
