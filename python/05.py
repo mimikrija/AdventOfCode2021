@@ -18,16 +18,15 @@ def line_from_endpoints(starts, ends, diagonals=False):
     dy = direction(sy, ey)
 
     if is_hor_ver(sx, ex, sy, ey):
-        return [(x, y) for x in range(sx, ex+dx, dx) for y in range(sy, ey+dy, dy)]
+        return {(x, y) for x in range(sx, ex+dx, dx) for y in range(sy, ey+dy, dy)}
     elif is_45(sx, ex, sy, ey) and diagonals:
-        return [(x,  y) for x, y in zip(range(sx, ex+dx, dx), range(sy, ey+dy, dy))]
+        return {(x,  y) for x, y in zip(range(sx, ex+dx, dx), range(sy, ey+dy, dy))}
     else:
-        return list()
+        return {}
 
 def count_overlaps(end_points, diagonals=False):
-    all_points = []
-    for starts, ends in end_points:
-        all_points += line_from_endpoints(starts, ends, diagonals)
+    lines = [line_from_endpoints(starts, ends, diagonals) for starts, ends in end_points]
+    all_points = [point for line in lines for point in line]
     points_count = Counter(all_points)
     return sum(freq >=2 for _, freq in points_count.most_common())
 
