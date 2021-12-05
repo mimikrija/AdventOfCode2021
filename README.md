@@ -24,3 +24,4 @@ Puzzle | Solution(s) | Remarks |
 [Day 2: Dive!](https://adventofcode.com/2021/day/2) | [Python](python/02.py) | [initial solution video](https://youtu.be/nUwS8rRacR4) |
 [Day 3: Binary Diagnostic](https://adventofcode.com/2021/day/3) | [Python](python/03.py) | [part 1 solution video](https://youtu.be/gUCD1leNNE8) - part 2 got me so tired that I didn't record it |
 [Day 4: Giant Squid](https://adventofcode.com/2021/day/4) | [Python](python/04.py) | I LOVED THIS PUZZLE. Unfortunately no video because I was not very talkative this morning but I recorded a [walk-through](https://youtu.be/ylToOHi-eLE) later. WELCOME GIANT SQUID!! |
+[Day 5: Hydrothermal Venture](https://adventofcode.com/2021/day/5) | [Python](python/05.py) | :hammer: TO DO create some sort of custom `range` which can go backwards depending on input into `santas_little_helpers`. It took me a WHILE to figure out why I was not getting all the diagonals... |
