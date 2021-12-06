@@ -1,3 +1,5 @@
+# Day 6: Lanternfish
+
 from santas_little_helpers import *
 from collections import defaultdict
 
