@@ -1,6 +1,16 @@
 from santas_little_helpers import *
 
-data = get_input('inputs/06.txt')
-data = get_input('inputs/06-ex.txt')
+fish = get_input('inputs/06.txt', True, ',')
 
-print(data[:3])
+days = 80
+
+timer_update = lambda t: t-1 if t>0 else 6
+
+for _ in range(days):
+    new_fish = [8] * fish.count(0)
+    fish = [timer_update(timer) for timer in fish]
+    fish += new_fish
+
+
+party_1 = len(fish)
+print_solutions(party_1)
