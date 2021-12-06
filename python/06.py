@@ -1,11 +1,10 @@
 # Day 6: Lanternfish
 
 from santas_little_helpers import *
-from collections import defaultdict
 
 fish_data = get_input('inputs/06.txt', True, ',')
 
-timer_update = lambda t: t-1 if t>0 else 6
+timer_update = lambda t: t-1 if t > 0 else 6
 
 def fish_count(days, in_fish):
     fish_status = [in_fish.count(num) for num in range(9)]
