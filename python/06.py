@@ -3,20 +3,19 @@
 from santas_little_helpers import *
 from collections import defaultdict
 
-fish = get_input('inputs/06.txt', True, ',')
+fish_data = get_input('inputs/06.txt', True, ',')
 
 timer_update = lambda t: t-1 if t>0 else 6
 
 def fish_count(days, in_fish):
-    fish_status = {num: fish.count(num) for num in in_fish}
-    fish_status[0] = 0
+    fish_status = [in_fish.count(num) for num in range(9)]
     for _ in range(days):
-        fish_status_new = defaultdict(int)
-        fish_status_new[8] = fish_status[0]
-        for num in fish_status:
-            fish_status_new[timer_update(num)] += fish_status[num]
-        fish_status = fish_status_new
-    return sum(c for c in fish_status.values())
+        update = [0 for _ in range(9)]
+        update[8] = fish_status[0]
+        for status in range(9):
+            update[timer_update(status)] += fish_status[status]
+        fish_status = list(update)
+    return sum(fish_status)
 
-party_1, party_2 = (fish_count(days, fish) for days in (80, 256))
+party_1, party_2 = (fish_count(days, fish_data) for days in (80, 256))
 print_solutions(party_1, party_2)
