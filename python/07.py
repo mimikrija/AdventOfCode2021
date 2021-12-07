@@ -9,9 +9,9 @@ fuel_incremental = lambda candidate, positions: sum(sum_series(abs(position-cand
 
 
 def find_fuel(crab_data):
-     constant_pos, incremental_pos = (round(median(crab_data)), round(mean(crab_data)))
-     party_1 = min(fuel_linear(candidate, crab_data) for candidate in range(constant_pos-1, constant_pos+2))
-     party_2 = min(fuel_incremental(candidate, crab_data) for candidate in range(incremental_pos-1, incremental_pos+2))
+     constant_pos, incremental_pos = (median(crab_data), int(mean(crab_data)))
+     party_1 = fuel_linear(constant_pos, crab_data)
+     party_2 = fuel_incremental(incremental_pos, crab_data)
      return int(party_1), int(party_2)
 
 
