@@ -1,3 +1,5 @@
+# Day 7: The Treachery of Whales
+
 from santas_little_helpers import *
 
 crab_data = get_input('inputs/07.txt', True,',')
