@@ -3,7 +3,12 @@ from santas_little_helpers import *
 from collections import defaultdict
 data = get_input('inputs/08.txt')
 #data = get_input('inputs/08-ex.txt')
-signals = [[signal for signal in line.split('|')[0].split()] for line in data]
+
+
+displays = []
+for line in data:
+    signal_pattern, digits = [line.split('|')[pos].split() for pos in {0,1}]
+    displays.append((signal_pattern, digits))
 
 def decypher(patterns):
     DIGIT_SIZE = {
@@ -71,10 +76,10 @@ def decypher(patterns):
 
     return final
 
-easy_data = [line.split('|')[1].split() for line in data]
+
 
 party_2 = 0
-for patterns, digits in zip(signals, easy_data):
+for patterns, digits in displays:
     solution = ''
     for code in digits:
         scode = ''.join(c for c in sorted(code))
