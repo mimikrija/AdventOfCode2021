@@ -1,72 +1,61 @@
 # Day 8: Seven Segment Search
 
 from santas_little_helpers import *
-from collections import defaultdict
+from collections import defaultdict, deque
 
 is_easy = lambda x: 2 <= len(x) <= 4 or len(x) == 7
 
-def decypher(patterns):
-    DIGIT_SIZE = {
-        0: 6,
-        1: 2,
-        2: 5,
-        3: 5,
-        4: 4,
-        5: 5,
-        6: 6,
-        7: 3,
-        8: 7,
-        9: 6,
-    }
-    SIZE_DIGIT = defaultdict(set)
-    for digit, size in DIGIT_SIZE.items():
-        SIZE_DIGIT[size].add(digit)
+def is_three(legend, pattern):
+    return len(pattern) == 5 and set(legend[1]).issubset(set(pattern))
 
-    # create dict
-    unknown = defaultdict(set)
+def is_nine(legend, pattern):
+    return len(set(pattern) - set(legend[7]) - set(legend[4])) == 1
+
+def is_zero(legend, pattern):
+    return set(legend[7]).issubset(set(pattern))# and set(pattern).issubset(set(legend[8]))
+
+def is_six(legend, pattern):
+    return pattern not in legend.values() and len(pattern) == 6
+
+def is_five(legend, pattern):
+    return pattern not in legend.values() and set(pattern).issubset(set(legend[6]))
+
+def is_two(legend, pattern):
+    return pattern not in legend.values()
+
+
+def decypher(in_patterns):
+    patterns = deque(sorted([pattern for pattern in in_patterns], key=len))
+    legend = dict()
+
+    # 1, 7, 4
+
+    for num in [1, 7, 4]:
+        legend[num] = patterns.popleft()
+
+    # 8
+    legend[8] = patterns.pop()
     for pattern in patterns:
-        unknown[len(pattern)].add(pattern)
-    translate = dict()
+        # 3
+        if is_three(legend, pattern):
+            legend[3] = pattern
+        # 9
+        elif is_nine(legend, pattern):
+            legend[9] = pattern
+        # 0
+        elif is_zero(legend, pattern):
+            legend[0] = pattern
 
-    # find easy ones
-    for size, patterns in unknown.items():
-        if len(patterns) == 1:
-            digit = SIZE_DIGIT[size].pop()
-            translate[digit] = unknown[size].pop()
-    # find 3
-    for candidate in unknown[DIGIT_SIZE[3]]:
-        if all(c in list(candidate) for c in translate[1]):
-            translate[3] = candidate
-            unknown[DIGIT_SIZE[3]].remove(candidate)
-            break
-    # find 6
-    for candidate in unknown[DIGIT_SIZE[6]]:
-        if not all(c in list(candidate) for c in translate[7]):
-            translate[6] = candidate
-            unknown[DIGIT_SIZE[6]].remove(candidate)
-            break
-    # find 9
-    for candidate in unknown[DIGIT_SIZE[9]]:
-        if all(c in candidate for c in translate[4]):
-            translate[9] = candidate
-            unknown[DIGIT_SIZE[9]].remove(candidate)
-            break
-    # find 0
-    translate[0] = unknown[DIGIT_SIZE[0]].pop()
-    # find 5
-    for candidate in unknown[DIGIT_SIZE[5]]:
-        if all(c in translate[6] for c in list(candidate)):
-            translate[5] = candidate
-            unknown[DIGIT_SIZE[5]].remove(candidate)
-            break
-    # find 2
-    translate[2] = unknown[DIGIT_SIZE[2]].pop()
+        elif is_six(legend, pattern):
+            legend[6] = pattern
+        
+    for pattern in patterns:
+        if is_five(legend, pattern):
+            legend[5] = pattern
+        elif is_two(legend, pattern):
+            legend[2] = pattern
 
-    final = dict()
-    for digit, code in translate.items():
-        sorted_code = ''.join(c for c in sorted(code))
-        final[sorted_code] = digit
-    return final
+    return {''.join(c for c in sorted(pattern)): digit for digit, pattern in legend.items()}
 
 
 data = get_input('inputs/08.txt')
@@ -88,7 +77,6 @@ for patterns, digits in displays:
         scode = ''.join(c for c in sorted(code))
         solution += str(translator[scode])
     party_2 += int(solution)
-
 
 
 print_solutions(party_1, party_2)
