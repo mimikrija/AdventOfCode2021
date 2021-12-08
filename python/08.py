@@ -84,26 +84,12 @@ for patterns, digits in displays:
     for code in digits:
         scode = ''.join(c for c in sorted(code))
         solution += str(decypher(patterns)[scode])
-    #print(solution)
     party_2 += int(solution)
 
-print(party_2)
-quit()
-solution = ''
-for code in easy_data[0]:
-    print(code)
-    scode = ''.join(c for c in sorted(code))
-    solution += str(decypher(signals[0])[scode])
 
-print(solution)
-
-quit()
-    
-
-easy_data = [line.split('|')[1] for line in data]
 counter = 0
-for line in easy_data:
-    for digit in line.split():
+for _, line in displays:
+    for digit in line:
         if len(digit) == 2:
             counter += 1
         if len(digit) == 4:
@@ -114,45 +100,4 @@ for line in easy_data:
             counter += 1
 
 party_1 = counter
-print_solutions(party_1)
-
-segments = {
-    'abcefg': 0,
-    'cf': 1,
-    'acdeg': 2,
-    'acdfg': 3,
-    'bcdf': 4,
-    'abdfg': 5,
-    'abdefg': 6,
-    'acf': 7,
-    'abcdefg': 8,
-    'abcdfg': 9,
-}
-
-digits_vs_signal_length = {
-    0: 6,
-    1: 2,
-    2: 5,
-    3: 5,
-    4: 4,
-    5: 5,
-    6: 6,
-    7: 3,
-    8: 7,
-    9: 6,
-}
-
-def count_easy_digits():
-    counter = 0
-    for line in easy_data:
-        for digit in line.split():
-            code = ''.join(c for c in sorted(digit))
-            print(digit, code, line)
-            num = segments[code]
-            if num in (1, 4, 7, 8):
-                counter += 1
-
-            
-    return counter
-
-print(count_easy_digits())
+print_solutions(party_1, party_2)
