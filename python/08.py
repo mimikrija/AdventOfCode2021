@@ -86,18 +86,7 @@ for patterns, digits in displays:
         solution += str(decypher(patterns)[scode])
     party_2 += int(solution)
 
+is_easy = lambda x: 2 <= len(x) <= 4 or len(x) == 7
+party_1 = sum(is_easy(digit) for _, digits in displays for digit in digits)
 
-counter = 0
-for _, line in displays:
-    for digit in line:
-        if len(digit) == 2:
-            counter += 1
-        if len(digit) == 4:
-            counter += 1
-        if len(digit) == 3:
-            counter += 1
-        if len(digit) == 7:
-            counter += 1
-
-party_1 = counter
 print_solutions(party_1, party_2)
