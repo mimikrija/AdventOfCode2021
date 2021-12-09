@@ -2,22 +2,18 @@
 
 from santas_little_helpers import *
 from collections import deque
-from operator import mul
+from operator import mul, ne
 from functools import reduce
 
+DELTAS ={
+    -1+0j, # left
+     1+0j, # right
+     0+1j, # down
+     0-1j, # up
+}
 
-def get_neighbors(current, cave_floor):
-    neighbors = list()
-    location = current
-    for dx in {-1, 1}:
-        candidate = location + complex(dx, 0)
-        if candidate in cave_floor:
-            neighbors.append(candidate)
-    for dy in {-1, 1}:
-        candidate = location + complex(0, dy)
-        if candidate in cave_floor:
-            neighbors.append(candidate)
-    return neighbors
+def get_neighbors(location, cave_floor):
+    return {candidate for candidate in (location + delta for delta in DELTAS) if candidate in cave_floor}
 
 def traverse_floor(cave_floor, start=0+0j, part_2=False):
     lowpoints = set()
