@@ -44,12 +44,8 @@ def traverse_floor(cave_floor, start=0+0j, part_2=False):
 def part_1(lowpoints):
     return sum(cave_heights[low_point]+1 for low_point in lowpoints)
 
-def basins(lowpoints):
-    basins = list()
-    for low_point in lowpoints:
-        basin = len(traverse_floor(cave_floor, low_point, True))+1
-        basins.append(basin)
-        #print(len(basins))
+def part_2(lowpoints):
+    basins = (len(traverse_floor(cave_floor, low_point, True))+1 for low_point in lowpoints)
     return reduce(mul, sorted(basins, reverse=True)[:3])
 
 lines = get_input('inputs/09.txt')
@@ -63,6 +59,4 @@ for row, line in enumerate(lines):
         cave_heights[position] = int(height)
 
 lowpoints = traverse_floor(cave_floor)
-party_1 = part_1(lowpoints)
-party_2 = basins(lowpoints)
-print_solutions(party_1, party_2)
+print_solutions(part_1(lowpoints), part_2(lowpoints))
