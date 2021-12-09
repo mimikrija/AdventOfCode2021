@@ -17,10 +17,8 @@ def get_neighbors(location, cave_floor):
 
 def traverse_floor(cave_floor, cave_heights, start=0+0j, part_2=False):
     lowpoints = set()
-    frontier = deque()
-    frontier.append(start)
-    reached = set()
-    reached.add(start)
+    frontier = deque([start])
+    reached = set({start})
 
     while frontier:
         current = frontier.pop()
