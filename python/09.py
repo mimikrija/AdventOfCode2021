@@ -15,7 +15,7 @@ DELTAS ={
 def get_neighbors(location, cave_floor):
     return {candidate for candidate in (location + delta for delta in DELTAS) if candidate in cave_floor}
 
-def traverse_floor(cave_floor, start=0+0j, part_2=False):
+def traverse_floor(cave_floor, cave_heights, start=0+0j, part_2=False):
     lowpoints = set()
     frontier = deque()
     frontier.append(start)
@@ -45,8 +45,8 @@ def traverse_floor(cave_floor, start=0+0j, part_2=False):
 def part_1(lowpoints):
     return sum(cave_heights[low_point]+1 for low_point in lowpoints)
 
-def part_2(lowpoints):
-    basins = (len(traverse_floor(cave_floor, low_point, True)) for low_point in lowpoints)
+def part_2(lowpoints, cave_floor, cave_heights):
+    basins = (len(traverse_floor(cave_floor, cave_heights, low_point, True)) for low_point in lowpoints)
     return reduce(mul, sorted(basins, reverse=True)[:3])
 
 lines = get_input('inputs/09.txt')
@@ -59,5 +59,5 @@ for row, line in enumerate(lines):
         cave_floor.append(position)
         cave_heights[position] = int(height)
 
-lowpoints = traverse_floor(cave_floor)
-print_solutions(part_1(lowpoints), part_2(lowpoints))
+lowpoints = traverse_floor(cave_floor, cave_heights)
+print_solutions(part_1(lowpoints), part_2(lowpoints, cave_floor, cave_heights))
