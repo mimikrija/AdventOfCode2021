@@ -26,26 +26,27 @@ def traverse_floor(cave_floor, start=0+0j, part_2=False):
         current = frontier.pop()
         current_height = cave_heights[current]
         neighbors = get_neighbors(current, cave_floor)
+        # part 1: find single lowest points
         if all(cave_heights[neighbor] > current_height for neighbor in neighbors) and not part_2:
             lowpoints.add(current)
         for neighbor in neighbors:
             if neighbor not in reached:
-                if part_2:
-                    if cave_heights[neighbor] > cave_heights[current] and cave_heights[neighbor] != 9:
-                        frontier.append(neighbor)
-                        reached.add(neighbor)
-                        lowpoints.add(neighbor)
-                else:
+                if not part_2:
                     frontier.append(neighbor)
                     reached.add(neighbor)
-
+                # part 2: find basins
+                elif cave_heights[neighbor] > current_height and cave_heights[neighbor] != 9:
+                        frontier.append(neighbor)
+                        reached.add(neighbor)
+    if part_2:
+        return reached
     return lowpoints
 
 def part_1(lowpoints):
     return sum(cave_heights[low_point]+1 for low_point in lowpoints)
 
 def part_2(lowpoints):
-    basins = (len(traverse_floor(cave_floor, low_point, True))+1 for low_point in lowpoints)
+    basins = (len(traverse_floor(cave_floor, low_point, True)) for low_point in lowpoints)
     return reduce(mul, sorted(basins, reverse=True)[:3])
 
 lines = get_input('inputs/09.txt')
