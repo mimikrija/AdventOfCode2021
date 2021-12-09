@@ -2,7 +2,7 @@
 
 from santas_little_helpers import *
 from collections import deque
-from operator import mul, ne
+from operator import mul
 from functools import reduce
 
 DELTAS ={
