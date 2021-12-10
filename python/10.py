@@ -36,9 +36,7 @@ def autocomplete(in_line):
 
 
 lines = get_input('inputs/10.txt')
-
 analysed_lines = [autocomplete(line) for line in lines]
-
 
 party_1 = sum(POINTS[line] for line in analysed_lines if isinstance(line, str))
 
