@@ -27,9 +27,7 @@ def autocomplete(in_line):
                 # incomplete line! return first illegal
                 return current
     # if line is legal we get here and return list of needed closing chars
-    completion = ''.join(o for o in reversed(opens))
-    completion = completion.translate(close_it)
-    return list(completion)
+    return list(''.join(o for o in reversed(opens)).translate(close_it))
 
 
 lines = get_input('inputs/10.txt')
