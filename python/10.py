@@ -51,25 +51,12 @@ def find_first_illegal(in_line):
             else:
                 return current
 
-def get_closing(in_line):
-    chars = deque(in_line)
-    open = deque()
-    while chars:
-        current = chars.popleft()
-        if current in ('([{<'):
-            open.append(current)
-        elif current in (')]}>'):
-            last_opened = open.pop()
-            if MATCHING[current] == last_opened:
-                pass
-    return [MATCHING_rev[c] for c in reversed(list(open))]
 
-party_1 = sum(POINTS[find_first_illegal(line)] for line in lines)
+party_1 = sum(POINTS[autocomplete(line)] for line in lines)
 
-incomplete_lines = [line for line in lines if find_first_illegal(line) is None]
-print(len(incomplete_lines))
+incomplete_lines = [line for line in lines if autocomplete(line) is None]
 
-completion_strings = [get_closing(line) for line in incomplete_lines]
+completion_strings = [autocomplete(line, True) for line in incomplete_lines]
 scores = [calculate_score(remaining) for remaining in completion_strings]
 party_2 = sorted(scores)[len(scores)//2]
 
