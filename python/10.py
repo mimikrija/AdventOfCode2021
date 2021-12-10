@@ -1,7 +1,6 @@
 # Day 10: Syntax Scoring
 
 from santas_little_helpers import *
-from collections import deque
 
 
 POINTS = {')': 3, ']': 57, '}': 1197, '>': 25137, None: 0,}
@@ -16,10 +15,8 @@ def calculate_score(remaining):
     return score
 
 def autocomplete(in_line):
-    line = deque(in_line)
-    opens = deque()
-    while line:
-        current = line.popleft()
+    opens = []
+    for current in list(in_line):
         if current in '([{<':
             opens.append(current)
         else:
