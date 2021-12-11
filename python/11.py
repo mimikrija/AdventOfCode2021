@@ -56,12 +56,13 @@ energy_levels = [[int(num) for num in row] for row in get_input('inputs/example.
 LIMIT = len(energy_levels)
 
 party_1 = 0
-for steps in range(100):
+for steps in range(1,1000):
     increase_energy(energy_levels)
-    print('helo')
     energy_levels, flashes = run_step(energy_levels)
-    print('helo 2')
     party_1 += flashes
+    if all(e==0 for row in energy_levels for e in row):
+        party_2 = steps
+        break
 
-print_solutions(party_1)
+print_solutions(party_1, party_2)
 
