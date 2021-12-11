@@ -41,19 +41,21 @@ def run_step(energy_levels):
         energy_levels[y][x] = 0
     return energy_levels, len(flashed_total)
 
+def solve(octopi):
+    count_flashes = 0
+    for steps in range(1,1000):
+        octopi, flashes = run_step(octopi)
+        if steps <= 100:
+            count_flashes += flashes
+        if all(e==0 for row in octopi for e in row):
+            sync_day = steps
+            break
+    return count_flashes, sync_day
+
 
 energy_levels = [[int(num) for num in row] for row in get_input('inputs/example.txt')]
 LIMIT = len(energy_levels)
 
-party_1 = 0
-for steps in range(1,1000):
-    increase_energy(energy_levels)
-    energy_levels, flashes = run_step(energy_levels)
-    if steps <= 100:
-        party_1 += flashes
-    if all(e==0 for row in energy_levels for e in row):
-        party_2 = steps
-        break
 
-print_solutions(party_1, party_2)
+print_solutions(*solve(energy_levels))
 
