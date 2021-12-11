@@ -9,7 +9,7 @@ def increase_energy(energy_levels):
             energy_levels[y][x] += 1
 
 
-def get_adjacents(x, y):
+def get_eight_neighbors(x, y):
     "return 8 neighbors of `x, y` in a fixed-size grid of size `LIMIT`"
     return {(xn, yn) for xn, yn in ((x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))
                     if 0 <= xn < LIMIT and 0 <= yn < LIMIT} - {(x, y)}
@@ -24,7 +24,7 @@ def run_step(energy_levels):
                             if e > 9 and (x, y) not in flashed_total}
     # This increases the energy level of all adjacent octopuses by 1 including octopuses that are diagonally adjacent.
         for octopus in flashed:
-            for x, y in get_adjacents(*octopus) - flashed:
+            for x, y in get_eight_neighbors(*octopus) - flashed:
                     energy_levels[y][x] += 1
         flashed_total |= flashed
     # If this causes an octopus to have an energy level greater than 9, it also flashes.
