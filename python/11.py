@@ -3,10 +3,10 @@
 from santas_little_helpers import *
 
 
-def increase_energy(octopi):
-    for y, row in enumerate(octopi):
+def increase_energy(energy_levels):
+    for y, row in enumerate(energy_levels):
         for x, e in enumerate(row):
-            octopi[y][x] += 1
+            energy_levels[y][x] += 1
 
 def get_adjacents(current_octopus):
     adjacents = set()
@@ -43,13 +43,13 @@ def run_step(energy_levels):
         energy_levels[y][x] = 0
     return energy_levels, len(flashed_total)
 
-def solve(octopi):
+def solve(energy_levels):
     count_flashes = 0
     for steps in range(1,1000):
-        octopi, flashes = run_step(octopi)
+        energy_levels, flashes = run_step(energy_levels)
         if steps <= 100:
             count_flashes += flashes
-        if all(e == 0 for row in octopi for e in row):
+        if all(e == 0 for row in energy_levels for e in row):
             sync_day = steps
             break
     return count_flashes, sync_day
