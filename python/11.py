@@ -29,12 +29,12 @@ def run_step(energy_levels):
     # Finally, any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash
     for x, y in flashed_total:
         energy_levels[y][x] = 0
-    return energy_levels, len(flashed_total)
+    return len(flashed_total)
 
 def solve(energy_levels):
     count_flashes = 0
     for steps in range(1,1000):
-        energy_levels, flashes = run_step(energy_levels)
+        flashes = run_step(energy_levels)
         if steps <= 100:
             count_flashes += flashes
         if all(e == 0 for row in energy_levels for e in row):
