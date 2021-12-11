@@ -19,3 +19,8 @@ def print_solutions(part_1, part_2 = None):
 def add_wrap(num_1, num_2, limit, start=0):
     " Returns sum of `num_1` and `num_2` wrapped around to `start` they go over `limit`"
     return start + (num_1 + num_2)%(limit+1)
+
+def get_eight_neighbors(x, y, GRID_SIZE):
+    "return 8 neighbors of `x, y` in a fixed-size square grid of size `GRID_SIZE`"
+    return {(xn, yn) for xn, yn in ((x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))
+                    if 0 <= xn < GRID_SIZE and 0 <= yn < GRID_SIZE} - {(x, y)}
