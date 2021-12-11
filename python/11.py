@@ -4,7 +4,6 @@ from santas_little_helpers import *
 
 
 def increase_energy(octopi):
-    # First, the energy level of each octopus increases by 1.
     for y, row in enumerate(octopi):
         for x, e in enumerate(row):
             octopi[y][x] += 1
@@ -22,10 +21,13 @@ def get_adjacents(current_octopus):
 
 
 def run_step(energy_levels):
+    # First, the energy level of each octopus increases by 1.
+    increase_energy(energy_levels)
     flashed_total = set()
     # Then, any octopus with an energy level greater than 9 flashes.
     while True:
-        flashed = {(x, y) for y, row in enumerate(energy_levels) for x, E in enumerate(row) if E > 9 and (x, y) not in flashed_total}
+        flashed = {(x, y) for y, row in enumerate(energy_levels) for x, e in enumerate(row)
+                            if e > 9 and (x, y) not in flashed_total}
     # This increases the energy level of all adjacent octopuses by 1 including octopuses that are diagonally adjacent.
         for octopus in flashed:
             for x, y in get_adjacents(octopus) - flashed:
@@ -47,7 +49,7 @@ def solve(octopi):
         octopi, flashes = run_step(octopi)
         if steps <= 100:
             count_flashes += flashes
-        if all(e==0 for row in octopi for e in row):
+        if all(e == 0 for row in octopi for e in row):
             sync_day = steps
             break
     return count_flashes, sync_day
