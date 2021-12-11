@@ -47,7 +47,7 @@ def solve(energy_levels):
     return count_flashes, sync_day
 
 
-energy_levels = [[int(num) for num in row] for row in get_input('inputs/example.txt')]
+energy_levels = [[int(num) for num in row] for row in get_input('inputs/11.txt')]
 GRID_SIZE = len(energy_levels)
 
 print_solutions(*solve(energy_levels))
