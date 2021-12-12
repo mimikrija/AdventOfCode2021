@@ -12,6 +12,7 @@ allowed_only_once = {point for edge in edges for point in edge if not point.isup
 visited = {point: 0 for point in {point for edge in edges for point in edge}}
 #print(visited)
 
+print(['a', 'b','a'].count('a'))
 
 def find_all_paths(graph, start, end):
     def find_all_paths_aux(start, end, path):
@@ -20,13 +21,29 @@ def find_all_paths(graph, start, end):
             return [path]
         paths = []
         for node in get_adjacent_vertices(edges,start): # - allowed_only_once: # set(path):
-            if not (node in allowed_only_once and node in path):
-                paths.extend(find_all_paths_aux( node, end, path))
+            lowers = [l for l in path if l.islower()]
+            if len(lowers) - len(set(lowers)) <= 1:
+                if not (node in allowed_only_once and path.count(node) == 2) and node != 'start': # != 'start'): # or node != 'end'):
+                    paths.extend(find_all_paths_aux( node, end, path))
         return paths
 
-    #adjlist = [set(graph.neighbors(node)) for node in xrange(graph.vcount())]
     return find_all_paths_aux( start, end, [])
 
+from collections import Counter
+
+party_2 = len(find_all_paths(edges, 'start', 'end'))
+# for path in find_all_paths(edges, 'start', 'end'):
+#     lowers = [l for l in path if l.islower()]
+#     if Counter(lowers).most_common()[1][1] == 1:
+#         party_2 += 1
+    
+
+#party_2 = sum(Counter(path) for path in find_all_paths(edges, 'start', 'end'))
+print(party_2)
+
+
+# for path in find_all_paths(edges, 'start', 'end'):
+#     print (path)
 print(len(find_all_paths(edges, 'start', 'end')))
 quit()
 
