@@ -31,3 +31,4 @@ Puzzle | Solution(s) | Remarks |
 [Day 9: Smoke Basin](https://adventofcode.com/2021/day/9) | [Python](python/09.py) | BFS, very slow :hourglass_flowing_sand: probably due to using `dict` and `complex`...
 [Day 10: Syntax Scoring](https://adventofcode.com/2021/day/10) | [Python](python/10.py) | When I figured that I could run the `autocomplete` function only once, I decided to (mis)use `isinstance` to distinguish between the data for part 1 and part 2 of the puzzle.
 [Day 11: Dumbo Octopus](https://adventofcode.com/2021/day/11) | [Python](python/11.py) | Variation of a game of life. I wonder about the right approach to keep track of energy levels. Is it ok to modify a calling parameter without returning it?
+[Day 12: Passage Pathing](https://adventofcode.com/2021/day/12) | [Python](python/12.py) | Recursive DFS I found on [Stack Exchange](https://stackoverflow.com/a/2606671) and modified to work with puzzle requirements. I still want to clean this up.
