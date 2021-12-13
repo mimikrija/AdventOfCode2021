@@ -4,7 +4,7 @@ Ho, ho, ho, welcome to my 2021 Advent of Code repository!
 This year, my goals are:
 
 1. complete first 10 puzzles :white_check_mark:
-2. collect at least 25 stars
+2. collect at least 25 stars :white_check_mark:
 
 My AoC repositories: [2015](https://github.com/mimikrija/AdventOfCode2015), [2016](https://github.com/mimikrija/AdventOfCode2016), [2017](https://github.com/mimikrija/AdventOfCode2017), [2018](https://github.com/mimikrija/AdventOfCode2018), [2019](https://github.com/mimikrija/AdventOfCode2019), [2020](https://github.com/mimikrija/AdventOfCode2020)
 
@@ -32,3 +32,4 @@ Puzzle | Solution(s) | Remarks |
 [Day 10: Syntax Scoring](https://adventofcode.com/2021/day/10) | [Python](python/10.py) | When I figured that I could run the `autocomplete` function only once, I decided to (mis)use `isinstance` to distinguish between the data for part 1 and part 2 of the puzzle.
 [Day 11: Dumbo Octopus](https://adventofcode.com/2021/day/11) | [Python](python/11.py) | Variation of a game of life. I wonder about the right approach to keep track of energy levels. Is it ok to modify a calling parameter without returning it?
 [Day 12: Passage Pathing](https://adventofcode.com/2021/day/12) | [Python](python/12.py) | Recursive DFS I found on [Stack Exchange](https://stackoverflow.com/a/2606671) and modified to work with puzzle requirements. I still want to clean this up.
+[Day 13: Transparent Origami](https://adventofcode.com/2021/day/13) | [Python](python/13.py) | Very fun puzzle! Sets and printing from sets (added a new helper here).
