@@ -15,15 +15,6 @@ def fold(coordinates, axis, axis_position):
             folded.add(fold_point)
     return {coordinate for coordinate in folded if coordinate[sym] < axis_position}
 
-def print_from_set(in_set):
-    print()
-    width, heigth = (max(in_set, key=lambda coord:coord[pos])[pos] + 1 for pos in (0, 1))
-    plot_area = [width * [' '] for _ in range(heigth)]
-    for x,y in in_set:
-        plot_area[y][x] = '#'
-    for row in plot_area:
-        print(''.join(c for c in row))
-
 def solve(coordinates, instructions):
     # follow the folding instructions
     for step, instruction in enumerate(instructions, start=1):

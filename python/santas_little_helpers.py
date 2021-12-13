@@ -24,3 +24,12 @@ def get_eight_neighbors(x, y, GRID_SIZE):
     "return 8 neighbors of `x, y` in a fixed-size square grid of size `GRID_SIZE`"
     return {(xn, yn) for xn, yn in ((x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))
                     if 0 <= xn < GRID_SIZE and 0 <= yn < GRID_SIZE} - {(x, y)}
+
+def print_from_set(in_set):
+    print()
+    width, heigth = (max(in_set, key=lambda coord:coord[pos])[pos] + 1 for pos in (0, 1))
+    plot_area = [width * [' '] for _ in range(heigth)]
+    for x,y in in_set:
+        plot_area[y][x] = '#'
+    for row in plot_area:
+        print(''.join(c for c in row))
