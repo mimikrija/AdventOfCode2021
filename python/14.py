@@ -16,7 +16,7 @@ def step(polymer, rules):
     new_polymer.append(polymer.pop())
     return new_polymer
 
-polymer_template, insertion_rules = get_input('inputs/14.txt', False, '\n\n')
+polymer_template, insertion_rules = get_input('inputs/ex.txt', False, '\n\n')
 insertion_rules = [rule.split(' -> ') for rule in insertion_rules.split('\n')]
 insertion_rules = {pair: letter for pair, letter in insertion_rules}
 
@@ -27,3 +27,10 @@ for _ in range(10):
 most = Counter(polymer).most_common()
 party_1 = most[0][1] - most[-1][1]
 print_solutions(party_1)
+
+## part_2 approach
+polymer_template, insertion_rules = get_input('inputs/ex.txt', False, '\n\n')
+insertion_rules = [rule.split(' -> ') for rule in insertion_rules.split('\n')]
+pair_generation = {pair: [pair[0]+letter, letter+pair[1]] for pair, letter in insertion_rules}
+count_pairs = {''.join(c for c in pair): 1 for pair in zip(polymer_template, polymer_template[1:])}
+print(count_pairs)
