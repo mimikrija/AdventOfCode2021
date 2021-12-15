@@ -20,6 +20,25 @@ def add_wrap(num_1, num_2, limit, start=0):
     " Returns sum of `num_1` and `num_2` wrapped around to `start` they go over `limit`"
     return start + (num_1 + num_2)%(limit+1)
 
+import itertools
+
+DELTAS_eight = {dimension: set(itertools.product({-1, 0, 1}, repeat=dimension))
+            - {tuple(0 for _ in range(dimension))} for dimension in {2, 3}}
+
+DELTAS_four = {(-1, 0), (1, 0), (0, 1), (0, -1)}
+
+def add_coordinates(tuple_1, tuple_2):
+    return tuple(t_1 + t_2 for t_1, t_2 in zip(tuple_1, tuple_2))
+
+def is_in(tuple_1, tuple_2):
+    return all(0 <= t_1 < t_2 for t_1, t_2 in zip(tuple_1, tuple_2))
+
+def get_four_neighbors(coordinate, GRID_SIZE=None):
+    neighbors_infinite = {add_coordinates(coordinate, delta) for delta in DELTAS_four}
+    if GRID_SIZE:
+        return {coordinate for coordinate in neighbors_infinite if is_in(coordinate, (GRID_SIZE, GRID_SIZE))}
+    return neighbors_infinite
+
 def get_eight_neighbors(x, y, GRID_SIZE):
     "return 8 neighbors of `x, y` in a fixed-size square grid of size `GRID_SIZE`"
     return {(xn, yn) for xn, yn in ((x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))
