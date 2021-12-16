@@ -1,5 +1,6 @@
 # Day 14: Extended Polymerization
 
+from typing import DefaultDict
 from santas_little_helpers import *
 from collections import Counter, deque
 
@@ -31,6 +32,24 @@ print_solutions(party_1)
 ## part_2 approach
 polymer_template, insertion_rules = get_input('inputs/ex.txt', False, '\n\n')
 insertion_rules = [rule.split(' -> ') for rule in insertion_rules.split('\n')]
-pair_generation = {pair: [pair[0]+letter, letter+pair[1]] for pair, letter in insertion_rules}
-count_pairs = {''.join(c for c in pair): 1 for pair in zip(polymer_template, polymer_template[1:])}
+pair_generation = {pair: (pair[0]+letter, letter+pair[1]) for pair, letter in insertion_rules}
+#count_pairs = {''.join(c for c in pair): 1 for pair in zip(polymer_template, polymer_template[1:])}
+
+count_pairs = DefaultDict(int)
+# initialize counter:
+for pair in zip(polymer_template, polymer_template[1:]):
+    pairstr = ''.join(c for c in pair)
+    count_pairs[pair_generation[pairstr]] += 1
+
+steps = 2
+for step in range(steps):
+    update_dict = DefaultDict(int)
+    for produced_pair, count in count_pairs.items():
+        for pairstr in produced_pair:
+            subpair = pair_generation[pairstr]
+            update_dict[subpair] += count
+    for pair, count in update_dict.items():
+        count_pairs[pair] += count
+
+
 print(count_pairs)
