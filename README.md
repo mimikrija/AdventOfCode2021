@@ -33,4 +33,5 @@ Puzzle | Solution(s) | Remarks |
 [Day 11: Dumbo Octopus](https://adventofcode.com/2021/day/11) | [Python](python/11.py) | Variation of a game of life. I wonder about the right approach to keep track of energy levels. Is it ok to modify a calling parameter without returning it?
 [Day 12: Passage Pathing](https://adventofcode.com/2021/day/12) | [Python](python/12.py) | Recursive DFS I found on [Stack Exchange](https://stackoverflow.com/a/2606671) and modified to work with puzzle requirements. I still want to clean this up.
 [Day 13: Transparent Origami](https://adventofcode.com/2021/day/13) | [Python](python/13.py) | Very fun puzzle! Sets and printing from sets (added a new helper here).
+[Day 14: Extended Polymerization](https://adventofcode.com/2021/day/14) | [Python](python/14.py) | I hate polymers.
 [Day 15: Chiton](https://adventofcode.com/2021/day/15) | [Python](python/15.py) | [Dijkstra algorithm from Red blob games](https://www.redblobgames.com/pathfinding/a-star/introduction.html), mostly. Added some helpers for neighbors in a grid.
