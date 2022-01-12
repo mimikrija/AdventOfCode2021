@@ -13,12 +13,10 @@ def update_x(x_pos, x_vel):
     x_vel -= x_vel > 0 - x_vel < 0
     return x_pos, x_vel
 
-def update_y(y_pos, y_vel, max_y):
+def update_y(y_pos, y_vel):
     y_pos += y_vel
     y_vel -= 1
-    if y_pos > max_y:
-        max_y = y_pos
-    return y_pos, y_vel, max_y
+    return y_pos, y_vel
 
 def keep_going(x_pos, x_vel, y_pos):
     if x_pos < MIN_X and x_vel == 0:
@@ -32,23 +30,34 @@ def keep_going(x_pos, x_vel, y_pos):
 def in_target(x_pos, y_pos):
     return MIN_X <= x_pos <= MAX_X and MIN_Y <= y_pos <= MAX_Y
 
-def solution_max_y(x_vel, y_vel):
-    x = 0
-    y = 0
-    max_y = 0
-    step = 0
+def valid_velocities():
+    velocities = list()
+    for x_vel_init, y_vel_init in product(range(1, MAX_X + 1), range(MIN_Y, -MIN_Y+1)):
+        x = 0
+        y = 0
+        x_vel = x_vel_init
+        y_vel = y_vel_init
 
-    while keep_going(x, x_vel, y):
-        step += 1
-        x, x_vel = update_x(x, x_vel)
-        y, y_vel, max_y = update_y(y, y_vel, max_y)
-        if in_target(x, y):
-            return max_y
-    return -1
+        while keep_going(x, x_vel, y):
+            x, x_vel = update_x(x, x_vel)
+            y, y_vel = update_y(y, y_vel)
+            if in_target(x, y):
+                velocities.append((x_vel_init, y_vel_init))
+                break
+    return velocities
+
+def peak(vel):
+    if vel > 0:
+        return vel**2 - sum(range(vel))
+    return 0
+
+def highest_point_of_all(initial_velocities):
+    return peak(max(initial_velocities, key=lambda x:x[1])[1])
 
 
-highs = [solution_max_y(x_vel, y_vel) for x_vel, y_vel in product(range(0, MAX_X + 1), range(MIN_Y, -MIN_Y+1))]
-party_1 = max(highs)
-party_2 = sum(c >= 0 for c in highs)
+initial_velocities = valid_velocities()
+
+party_1 = highest_point_of_all(initial_velocities)
+party_2 = len(initial_velocities)
 
 print_solutions(party_1, party_2)
