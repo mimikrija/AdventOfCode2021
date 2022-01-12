@@ -8,15 +8,12 @@ data = get_input('inputs/17.txt')[0]
 MIN_X, MAX_X, MIN_Y, MAX_Y = map(int, findall(r'-?\d+', data))
 
 
-def update_x(x_pos, x_vel):
+def update(x_pos, x_vel, y_pos, y_vel):
     x_pos += x_vel
     x_vel -= x_vel > 0 - x_vel < 0
-    return x_pos, x_vel
-
-def update_y(y_pos, y_vel):
     y_pos += y_vel
     y_vel -= 1
-    return y_pos, y_vel
+    return x_pos, x_vel, y_pos, y_vel
 
 def keep_going(x_pos, x_vel, y_pos):
     if x_pos < MIN_X and x_vel == 0:
@@ -39,8 +36,7 @@ def valid_velocities():
         y_vel = y_vel_init
 
         while keep_going(x, x_vel, y):
-            x, x_vel = update_x(x, x_vel)
-            y, y_vel = update_y(y, y_vel)
+            x, x_vel, y, y_vel = update(x, x_vel, y, y_vel)
             if in_target(x, y):
                 velocities.append((x_vel_init, y_vel_init))
                 break
