@@ -1,0 +1,3 @@
+[submodule "python/santas_little_helpers"]
+	path = python/santas_little_helpers
+	url = https://github.com/mimikrija/santas_little_helpers.git
