@@ -1,6 +1,7 @@
 # Day 17: Trick Shot
 
-from santas_little_helpers import *
+from santas_little_helpers.helpers import *
+from santas_little_helpers.helpers import *
 from re import findall
 from itertools import product
 

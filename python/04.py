@@ -1,6 +1,7 @@
 # Day 4: Giant Squid
 
 from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 
 class Card:
     def __init__(self, raw_card):

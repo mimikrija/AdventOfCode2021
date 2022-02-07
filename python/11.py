@@ -1,6 +1,7 @@
 # Day 11: Dumbo Octopus
 
 from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 
 def increase_energy(energy_levels):
     for y, row in enumerate(energy_levels):

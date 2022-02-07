@@ -1,6 +1,7 @@
 # Day 15: Chiton
 
 from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 from queue import PriorityQueue
 
 data = get_input('inputs/15.txt')

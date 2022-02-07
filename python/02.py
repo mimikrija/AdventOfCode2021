@@ -1,6 +1,6 @@
 # Day 2: Dive!
 
-from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 from itertools import accumulate
 
 def find_position(instructions, is_part_2=False):

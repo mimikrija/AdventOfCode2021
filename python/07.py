@@ -1,6 +1,7 @@
 # Day 7: The Treachery of Whales
 
 from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 from statistics import median, mean
 
 fuel_linear = lambda candidate, positions: sum(abs(position-candidate) for position in positions)

@@ -1,6 +1,6 @@
 # Day 1: Sonar Sweep
 
-from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 
 sea_depths = get_input('inputs/01.txt', True)
 

@@ -1,6 +1,7 @@
 # Day 10: Syntax Scoring
 
 from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 
 
 POINTS = {')': 3, ']': 57, '}': 1197, '>': 25137, None: 0,}

@@ -1,6 +1,7 @@
 # Day 14: Extended Polymerization
 
 from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 from collections import defaultdict
 
 

@@ -1,6 +1,7 @@
 # Day 6: Lanternfish
 
 from santas_little_helpers import *
+from santas_little_helpers.helpers import *
 
 fish_data = get_input('inputs/06.txt', True, ',')
 
