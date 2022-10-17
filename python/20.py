@@ -1,48 +1,39 @@
-from audioop import minmax
+
 from santas_little_helpers.helpers import *
+from math import sqrt
 
 # def convert_9_pixels_to_number(pixels):
-#     for pixel in pixels
+
 def get_block(x, y):
     "return 9 pixels around of `x, y`, inclusive, in an infinite grid"
-    return {(xn, yn) for xn, yn in ((x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))}
+    return sorted(sorted({(xn, yn) for xn, yn in ((x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))}, key=lambda coord:coord[0]), key=lambda coord:coord[1])
 
-def get_enhancement_number(pixel, current_image):
-    block = get_block(*pixel)
-    number = ''
-    # treba rijesiti konzistentni sort!!
-    for pixel in sorted(sorted(block, key=lambda coord:coord[0]), key=lambda coord:coord[1]):
-
-        if pixel in current_image:
-            number += '#'
-        else:
-            number += '.'
-    number = ''.join('1' if c == '#' else '0' for c in number)
+def get_enhancement_number(pixel, current_image, count=1):
+    if count % 2 == 1:
+        outside_pixel = '.'
+    else:
+        outside_pixel = '#'
+    number = ''.join(current_image.get(coordinate, outside_pixel) for coordinate in get_block(*pixel)).translate(str.maketrans('#.', '10'))
     return int(number, 2)
 
-data = get_input('inputs/20-e.txt')
-
-enhancement_algorithm = [c == '#' for c in data[0]]
-print(len(enhancement_algorithm))
-
-
-lights = {(column, row) for row, line in enumerate(data[2:]) for column, char in enumerate(line) if char == '#'}
-#lights = {(x, y) for x in range(0, 3) for y in range(0, 3)}
-
-
-
-print_from_set(lights)
-print(' ')
-min_x, max_x = -10, 10
-min_y, max_y = -10, 10
-new_lights = set()
-for x in range(min_x, max_x+1):
-    for y in range(min_y, max_y+1):
-        if enhancement_algorithm[get_enhancement_number((x, y), lights)]:
-            new_lights.add((x, y))
+def refresh_grid(in_grid, enhancement, count=1):
+    dimension = int(sqrt(len(in_grid))) + 1
+    out_grid = dict()
+    for x in range(-count, dimension):
+        for y in range(-count, dimension):
+            pos = get_enhancement_number((x, y), in_grid, count)
+            out_grid[(x, y)] = enhancement[pos]
+    return out_grid
 
 
+data = get_input('inputs/20.txt')
 
-print_from_set(new_lights)
-# print(sorted(new_lights))
-# print(len(sorted(new_lights)))
+enhancement_algorithm = data[0]
+lights = {(column, row): char for row, line in enumerate(data[2:]) for column, char in enumerate(line)}
+
+for n in range(1, 51):
+    lights = refresh_grid(lights, enhancement_algorithm, n)
+
+
+party_1 = len([c for c in lights.values() if c == '#'])
+print_solutions(party_1)
