@@ -1,5 +1,4 @@
 from santas_little_helpers.helpers import *
-from math import sqrt
 
 
 def get_block(x, y):
@@ -15,10 +14,13 @@ def get_enhancement_number(pixel, current_image, count=1):
     return int(number, 2)
 
 def refresh_grid(in_grid, enhancement, count=1):
-    dimension = int(sqrt(len(in_grid))) + 1
     out_grid = dict()
-    for x in range(-count, dimension):
-        for y in range(-count, dimension):
+    xx = [x for x, y in in_grid.keys()]
+    yy = [y for x, y in in_grid.keys()]
+    x_range = range(min(xx)-1, max(xx)+2)
+    y_range = range(min(yy)-1, max(yy)+2)
+    for x in x_range:
+        for y in y_range:
             pos = get_enhancement_number((x, y), in_grid, count)
             out_grid[(x, y)] = enhancement[pos]
     return out_grid
