@@ -1,8 +1,6 @@
-
 from santas_little_helpers.helpers import *
 from math import sqrt
 
-# def convert_9_pixels_to_number(pixels):
 
 def get_block(x, y):
     "return 9 pixels around of `x, y`, inclusive, in an infinite grid"
@@ -25,15 +23,19 @@ def refresh_grid(in_grid, enhancement, count=1):
             out_grid[(x, y)] = enhancement[pos]
     return out_grid
 
+def lights_on(in_grid, iterations):
+    for n in range(1, iterations+1):
+        in_grid = refresh_grid(in_grid, enhancement_algorithm, n)
+    return sum(c == '#' for c in in_grid.values())
+
 
 data = get_input('inputs/20.txt')
 
 enhancement_algorithm = data[0]
 lights = {(column, row): char for row, line in enumerate(data[2:]) for column, char in enumerate(line)}
 
-for n in range(1, 51):
-    lights = refresh_grid(lights, enhancement_algorithm, n)
 
+party_1 = lights_on(lights, 2)
+party_2 = lights_on(lights, 50)
 
-party_1 = len([c for c in lights.values() if c == '#'])
-print_solutions(party_1)
+print_solutions(party_1, party_2)
