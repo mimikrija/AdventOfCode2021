@@ -3,7 +3,7 @@ from santas_little_helpers.helpers import *
 
 def get_block(x, y):
     "return 9 pixels around of `x, y`, inclusive, in an infinite grid"
-    return sorted(sorted({(xn, yn) for xn, yn in ((x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))}, key=lambda coord:coord[0]), key=lambda coord:coord[1])
+    return ((x+dx, y+dy) for dy in range(-1, 2) for dx in range(-1, 2))
 
 def get_enhancement_number(pixel, current_image, count=1):
     if count % 2 == 1:
