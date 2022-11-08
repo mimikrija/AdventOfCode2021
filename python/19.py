@@ -1,6 +1,6 @@
 from santas_little_helpers.helpers import *
 from itertools import product, permutations
-from collections import Counter
+from collections import Counter, defaultdict
 
 ROLL = [(1, 0, 0), (0, 0, -1), (0, 1, 0)]
 PITCH = [(0, 0, 1), (0, 1, 0), (-1, 0, 0)]
@@ -9,7 +9,7 @@ YAW = [(0, -1, 0), (1, 0, 0), (0, 0, 1)]
 def diff(first, second):
     return (first[0] - second[0], first[1] - second[1], first[2] - second[2])
 
-def overlap(first, second):
+def most_common_distance(first, second):
     """"Returns most common distance from `second` to `first` coordinates"""
     return Counter((diff(two, one) for one, two in product(first, second))).most_common(1)[0]
 
@@ -49,11 +49,32 @@ def generate_rotated_coordinates(in_coords):
             yield yawed_pitched_roll
 
 
+def align_coordinates(fixed, rotating):
+    gencoords = generate_rotated_coordinates(rotating)
+    while True:
+        dist, count = most_common_distance(fixed, rotating)
+        if count >= 12:
+            return dist, rotating
+        else:
+            try:
+                rotating = next(gencoords)
+            except StopIteration:
+                return
 
+def overlap(in_scanners):
+    """"returns a dictionary {scanner_name: list of tupples (matched_scanner, distance, rotated_coordinates)"""
+    results = defaultdict(list)
+    for scanner1, scanner2 in permutations(scanners.keys(), r=2):
+        if scanner1 != scanner2:
+            alignment = align_coordinates(scanners[scanner1], scanners[scanner2])
+            if alignment:
+                distance, coordinates = alignment
+                results[scanner1].append((scanner2, distance, coordinates))
+    return results
 
 
 scanners = dict()
-for scanner in get_input('inputs/19.txt', False, '\n\n'):
+for scanner in get_input('inputs/19-e.txt', False, '\n\n'):
     scanner_data = scanner.split('\n')
     name = scanner_data[0]
     coords = set(eval('(' + line + ')') for line in scanner_data[1:])
