@@ -74,10 +74,13 @@ def overlap(in_scanners):
                 results[scanner1].append((scanner2, distance, coordinates))
     return results
 
+def manhattan(one, two=(0, 0, 0)):
+    return sum(abs(f-s) for f, s in zip(one, two))
+
 def get_unique_coordinates(in_scanners):
     fixed = [set(in_scanners['--- scanner 1 ---'])]
     to_match = deque([set(coords) for scanner, coords in in_scanners.items() if scanner != '--- scanner 1 ---'])
-
+    distances = []
     while to_match:
         match_next = to_match.popleft()
         old_l = len(fixed)
@@ -86,6 +89,7 @@ def get_unique_coordinates(in_scanners):
             if alignment:
                 delta, new_coords = alignment
                 fixed.append({diff(coord, delta) for coord in new_coords})
+                distances.append(delta)
                 break
         if old_l == len(fixed): # nothing happened above
             to_match.append(match_next)
@@ -93,7 +97,8 @@ def get_unique_coordinates(in_scanners):
     unique_coords = set()
     for fix in fixed:
         unique_coords |= fix
-    return unique_coords
+    
+    return len(unique_coords), distances
 
 
 scanners = dict()
@@ -103,6 +108,8 @@ for scanner in get_input('inputs/19.txt', False, '\n\n'):
     coords = set(eval('(' + line + ')') for line in scanner_data[1:])
     scanners[name] = coords
 
-party_1 = len(get_unique_coordinates(scanners))
+party_1, distances = get_unique_coordinates(scanners)
 
-print_solutions(party_1)
+party_2 = max(manhattan(first, second) for first, second in permutations(distances, r=2))
+
+print_solutions(party_1, party_2)
