@@ -61,19 +61,6 @@ def align_coordinates(fixed, rotating):
             except StopIteration:
                 return
 
-def overlap(in_scanners):
-    """"returns a dictionary {scanner_name: list of tupples (matched_scanner, distance, rotated_coordinates)"""
-    results = defaultdict(list)
-    for scanner1, scanner2 in permutations(in_scanners.keys(), r=2):
-        if scanner1 != scanner2:
-            alignment = align_coordinates(in_scanners[scanner1], in_scanners[scanner2])
-            if alignment:
-                distance, coordinates = alignment
-                print(scanner1, scanner2, distance)
-                in_scanners[scanner2] = coordinates # store rotated coordinates so that we are always in line with scanner 1
-                results[scanner1].append((scanner2, distance, coordinates))
-    return results
-
 def manhattan(one, two=(0, 0, 0)):
     return sum(abs(f-s) for f, s in zip(one, two))
 
