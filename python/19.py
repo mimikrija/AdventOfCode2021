@@ -1,6 +1,6 @@
 from santas_little_helpers.helpers import *
 from itertools import product, permutations
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, deque
 
 ROLL = [(1, 0, 0), (0, 0, -1), (0, 1, 0)]
 PITCH = [(0, 0, 1), (0, 1, 0), (-1, 0, 0)]
@@ -64,19 +64,45 @@ def align_coordinates(fixed, rotating):
 def overlap(in_scanners):
     """"returns a dictionary {scanner_name: list of tupples (matched_scanner, distance, rotated_coordinates)"""
     results = defaultdict(list)
-    for scanner1, scanner2 in permutations(scanners.keys(), r=2):
+    for scanner1, scanner2 in permutations(in_scanners.keys(), r=2):
         if scanner1 != scanner2:
-            alignment = align_coordinates(scanners[scanner1], scanners[scanner2])
+            alignment = align_coordinates(in_scanners[scanner1], in_scanners[scanner2])
             if alignment:
                 distance, coordinates = alignment
+                print(scanner1, scanner2, distance)
+                in_scanners[scanner2] = coordinates # store rotated coordinates so that we are always in line with scanner 1
                 results[scanner1].append((scanner2, distance, coordinates))
     return results
 
+def get_unique_coordinates(in_scanners):
+    fixed = [set(in_scanners['--- scanner 1 ---'])]
+    to_match = deque([set(coords) for scanner, coords in in_scanners.items() if scanner != '--- scanner 1 ---'])
+
+    while to_match:
+        match_next = to_match.popleft()
+        old_l = len(fixed)
+        for fix in fixed:
+            alignment = align_coordinates(fix, match_next)
+            if alignment:
+                delta, new_coords = alignment
+                fixed.append({diff(coord, delta) for coord in new_coords})
+                break
+        if old_l == len(fixed): # nothing happened above
+            to_match.append(match_next)
+    
+    unique_coords = set()
+    for fix in fixed:
+        unique_coords |= fix
+    return unique_coords
+
 
 scanners = dict()
-for scanner in get_input('inputs/19-e.txt', False, '\n\n'):
+for scanner in get_input('inputs/19.txt', False, '\n\n'):
     scanner_data = scanner.split('\n')
     name = scanner_data[0]
     coords = set(eval('(' + line + ')') for line in scanner_data[1:])
     scanners[name] = coords
 
+party_1 = len(get_unique_coordinates(scanners))
+
+print_solutions(party_1)
