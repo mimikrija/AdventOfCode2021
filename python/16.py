@@ -22,7 +22,7 @@ def to_binary(hex):
 def calculate(operator, data):
     return int(reduce(OPERATORS[operator],data))
 
-def read_packet(packet, packet_versions=[]):
+def read_packet(packet, packet_versions):
 
     packet_version = int(pop_and_join(packet, 3), 2)
     type_id = int(pop_and_join(packet, 3), 2)
@@ -61,5 +61,5 @@ def read_packet(packet, packet_versions=[]):
 
 data = deque([to_binary(line) for line in get_input('inputs/16.txt')][0])
 
-party_1, party_2 = read_packet(data)
+party_1, party_2 = read_packet(data, [])
 print_solutions(party_1, party_2)
