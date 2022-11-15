@@ -13,6 +13,8 @@ OPERATORS = {
     7: eq,
 }
 
+def pop_and_join(packet, num_of_pops):
+    return ''.join(packet.popleft() for _ in range(num_of_pops))
 
 def to_binary(hex):
     return "".join(f"{byte:08b}" for byte in bytes.fromhex(hex))
@@ -22,8 +24,8 @@ def calculate(operator, data):
 
 def read_packet(packet, packet_versions=[]):
 
-    packet_version = int(''.join(packet.popleft() for _ in range(3)), 2)
-    type_id = int(''.join(packet.popleft() for _ in range(3)), 2)
+    packet_version = int(pop_and_join(packet, 3), 2)
+    type_id = int(pop_and_join(packet, 3), 2)
     packet_versions.append(packet_version)
 
 
@@ -31,7 +33,7 @@ def read_packet(packet, packet_versions=[]):
         literal = ''
         while True:
             keep_reading = packet.popleft() == '1'
-            literal += ''.join(packet.popleft() for _ in range(4))
+            literal += pop_and_join(packet, 4)
             if not keep_reading:
                 result = int(literal, 2)
                 break
@@ -39,7 +41,7 @@ def read_packet(packet, packet_versions=[]):
         length_type_id = packet.popleft()
         values = []
         if length_type_id == '0':
-            total_length = int(''.join(packet.popleft() for _ in range(15)), 2)
+            total_length = int(pop_and_join(packet, 15), 2)
             len_diff = len(packet) - total_length
             while True:
                 _, result = read_packet(packet, packet_versions)
@@ -48,7 +50,7 @@ def read_packet(packet, packet_versions=[]):
                     result = calculate(type_id, values)
                     break
         else:
-            number_of_subpackets = int(''.join(packet.popleft() for _ in range(11)), 2)
+            number_of_subpackets = int(pop_and_join(packet, 11), 2)
             for _ in range(number_of_subpackets):
                 _, result = read_packet(packet, packet_versions)
                 values.append(result)
