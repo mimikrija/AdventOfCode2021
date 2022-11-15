@@ -30,12 +30,12 @@ def read_packet(packet, packet_versions):
 
 
     if type_id == 4:
-        literal = ''
+        literal = []
         while True:
             keep_reading = packet.popleft() == '1'
-            literal += pop_and_join(packet, 4)
+            literal.append(pop_and_join(packet, 4))
             if not keep_reading:
-                result = int(literal, 2)
+                result = int(''.join(c for c in literal), 2)
                 break
     else:
         length_type_id = packet.popleft()
