@@ -1,7 +1,11 @@
 from santas_little_helpers.helpers import *
 from collections import deque
 
-data = get_input('inputs/18-e.txt')
+
+intenize = lambda x: int(x) if x not in '[]' else x
+
+def format_data(in_string):
+    return [intenize(c) for c in in_string if c != ',']
 
 def print_pretty(in_list):
     print (''.join(str(c) for c in in_list))
@@ -43,13 +47,12 @@ def explode(in_snail):
     return add_to_left(left, left_add) + [0] + add_to_right(right, right_add)
 
 
-intenize = lambda x: int(x) if x not in '[]' else x
+snail_homework = [format_data(line) for line in get_input('inputs/18-e.txt')]
 
-for sn in data:
-    bla = [c for c in sn if c != ',']
-    bla2 = [intenize(c) for c in bla]
-    print_pretty(bla2)
+for sn in snail_homework:
+
+    print_pretty(sn)
     print('becomes: ')
-    print_pretty(explode(bla2))
+    print_pretty(explode(sn))
     print('------')
 
