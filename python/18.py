@@ -10,6 +10,9 @@ def format_data(in_string):
 def print_pretty(in_list):
     print (''.join(str(c) for c in in_list))
 
+def add_snails(one, two):
+    return ['['] + one + two + [']']
+
 def find_split_point(snail):
     count_open = 0
     for pos, c in enumerate(snail):
@@ -56,3 +59,8 @@ for sn in snail_homework:
     print_pretty(explode(sn))
     print('------')
 
+sn1 = format_data('[[[[4,3],4],4],[7,[[8,4],9]]]')
+sn2 = format_data('[1,1]')
+
+a = add_snails(sn1, sn2)
+print_pretty(explode(a))
