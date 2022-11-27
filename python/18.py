@@ -17,8 +17,10 @@ def find_split_point(snail):
     count_open = 0
     for pos, c in enumerate(snail):
         count_open += int(c == '[') - int(c ==']')
-        if count_open > 4:
+        if (to_explode := count_open > 4):
             break
+    if not to_explode:
+        return None, None, None
     left = snail[0:pos]
     right = snail[pos+4:]
     exploding_pair = snail[pos+1:pos+3]
@@ -46,21 +48,11 @@ def add_to_right(in_right, number):
 
 def explode(in_snail):
     left, pair, right = find_split_point(in_snail)
+    if not left:
+        return False, in_snail
     left_add, right_add = pair
-    return add_to_left(left, left_add) + [0] + add_to_right(right, right_add)
+    return True, add_to_left(left, left_add) + [0] + add_to_right(right, right_add)
 
 
 snail_homework = [format_data(line) for line in get_input('inputs/18-e.txt')]
 
-for sn in snail_homework:
-
-    print_pretty(sn)
-    print('becomes: ')
-    print_pretty(explode(sn))
-    print('------')
-
-sn1 = format_data('[[[[4,3],4],4],[7,[[8,4],9]]]')
-sn2 = format_data('[1,1]')
-
-a = add_snails(sn1, sn2)
-print_pretty(explode(a))
