@@ -53,6 +53,18 @@ def explode(in_snail):
     left_add, right_add = pair
     return True, add_to_left(left, left_add) + [0] + add_to_right(right, right_add)
 
+def split(in_snail):
+    snail = deque(in_snail)
+    left = []
+    while snail:
+        current = snail.popleft()
+        if isinstance(current, int) and current >= 10:
+            return True, left + ['['] + [(half:=current//2)] + [current-half] + [']'] + list(snail)
+        left.append(current)
+    return False, in_snail
+
+
+
+
 
 snail_homework = [format_data(line) for line in get_input('inputs/18-e.txt')]
-
