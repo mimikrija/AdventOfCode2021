@@ -1,5 +1,6 @@
 from santas_little_helpers.helpers import *
 from collections import deque
+from itertools import permutations
 
 
 intenize = lambda x: int(x) if x not in '[]' else x
@@ -127,7 +128,13 @@ def solve_homework(homework):
 
 snail_homework = [format_data(line) for line in get_input('inputs/18.txt')]
 
+
+
+def max_result(homework):
+    return max(get_magnitude(reduce(add_snails(first, second))) for first, second in permutations(homework, 2))
+
+
 party_1 = solve_homework(snail_homework)
-print_solutions(party_1)
+party_2 = max_result(snail_homework)
 
-
+print_solutions(party_1, party_2)
