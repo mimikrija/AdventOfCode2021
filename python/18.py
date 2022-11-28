@@ -63,8 +63,71 @@ def split(in_snail):
         left.append(current)
     return False, in_snail
 
+def magnitude(in_snail, counter=0):
+    snail=list(in_snail)
+    print('in snail', snail)
+    if sum(isinstance(c, int) for c in snail) == 2:
+        return(sum(c) for c in snail if isinstance(c, int))
+
+    for pos, (first, second) in enumerate(zip(snail, snail[1:])):
+        if isinstance(first, int) and isinstance(second, int):
+            mag = 3* first + 2*second
+            print(snail[:pos] + [mag] + snail[pos+3:])
+            if counter == 10:
+                return
+            magnitude(snail[:pos] + [mag] + snail[pos+3:], counter+1)
+            break
 
 
+def to_list(in_snail):
+    result = []
+    for first, second in zip(in_snail, in_snail[1:]):
+        result.append(first)
+        if isinstance(first, int) and second == '[' or isinstance(first, int) and isinstance(second, int) or first == ']' and isinstance(second, int) or first == ']' and second == '[':
+            result.append(',')
+    result.append(']')
+
+    return eval(''.join(str(c) for c in result))
 
 
-snail_homework = [format_data(line) for line in get_input('inputs/18-e.txt')]
+def magnitude(snail):
+    if isinstance(snail, int):
+        return snail
+    left, right = snail
+    if all(isinstance(p, int) for p in (left, right)):
+        return 3*left + 2*right
+    else:
+        return 3*magnitude(left) + 2* magnitude(right)
+
+def get_magnitude(in_snail):
+    snail = to_list(in_snail)
+    return magnitude(snail)
+
+
+def reduce(in_snail):
+    snail = list(in_snail)
+    while True:
+        #print_pretty(snail)
+        exploded, snail = explode(snail)
+        if exploded:
+            continue
+        splitted, snail = split(snail)
+        if not splitted:
+            return snail
+
+def solve_homework(homework):
+    current_result = homework[0]
+    for second in homework[1:]:
+        current_result = add_snails(current_result, second)
+        current_result = reduce(current_result)
+    
+    #print_pretty(current_result)
+    return get_magnitude(current_result)
+
+
+snail_homework = [format_data(line) for line in get_input('inputs/18.txt')]
+
+party_1 = solve_homework(snail_homework)
+print_solutions(party_1)
+
+
