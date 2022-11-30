@@ -1,8 +1,11 @@
-from santas_little_helpers.helpers import *
-from re import findall
-from operator import mul
+# Day 22: Reactor Reboot
+
 from functools import reduce
-from time import time
+from operator import mul
+from re import findall
+
+from santas_little_helpers.helpers import *
+
 
 class Cuboid():
     def __init__(self, borders_x=(0, 0), borders_y=(0, 0), borders_z=(0, 0), on=True):

@@ -1,8 +1,6 @@
 # Day 10: Syntax Scoring
 
-from santas_little_helpers import *
 from santas_little_helpers.helpers import *
-
 
 POINTS = {')': 3, ']': 57, '}': 1197, '>': 25137, None: 0,}
 AUTOCOMPLETE_POINTS = { ')': 1, ']': 2, '}': 3, '>': 4, None: 0,}

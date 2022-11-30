@@ -1,7 +1,8 @@
-from santas_little_helpers.helpers import *
 from collections import deque
-from operator import add, mul, gt, lt, eq
 from functools import reduce
+from operator import add, eq, gt, lt, mul
+
+from santas_little_helpers.helpers import *
 
 OPERATORS = {
     0: add,

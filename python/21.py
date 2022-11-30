@@ -1,6 +1,9 @@
-from santas_little_helpers.helpers import print_solutions
-from collections import deque, Counter
+# Day 21: Dirac Dice
+
+from collections import Counter, deque
 from itertools import product
+
+from santas_little_helpers.helpers import print_solutions
 
 
 def deterministic_die():

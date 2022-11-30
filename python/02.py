@@ -1,7 +1,9 @@
 # Day 2: Dive!
 
-from santas_little_helpers.helpers import *
 from itertools import accumulate
+
+from santas_little_helpers.helpers import *
+
 
 def find_position(instructions, is_part_2=False):
     MOVE = {

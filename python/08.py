@@ -1,8 +1,8 @@
 # Day 8: Seven Segment Search
 
-from santas_little_helpers import *
+from collections import deque
+
 from santas_little_helpers.helpers import *
-from collections import defaultdict, deque
 
 is_easy = lambda x: 2 <= len(x) <= 4 or len(x) == 7
 

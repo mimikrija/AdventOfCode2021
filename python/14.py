@@ -1,9 +1,8 @@
 # Day 14: Extended Polymerization
 
-from santas_little_helpers import *
-from santas_little_helpers.helpers import *
 from collections import defaultdict
 
+from santas_little_helpers.helpers import *
 
 polymer_template, insertion_rules = get_input('inputs/14.txt', False, '\n\n')
 insertion_rules = [rule.split(' -> ') for rule in insertion_rules.split('\n')]

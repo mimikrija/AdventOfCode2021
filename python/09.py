@@ -1,10 +1,10 @@
 # Day 9: Smoke Basin
 
-from santas_little_helpers import *
-from santas_little_helpers.helpers import *
 from collections import deque
-from operator import mul
 from functools import reduce
+from operator import mul
+
+from santas_little_helpers.helpers import *
 
 DELTAS ={
     -1+0j, # left

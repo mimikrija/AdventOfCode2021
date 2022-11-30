@@ -1,8 +1,8 @@
 # Day 15: Chiton
 
-from santas_little_helpers import *
-from santas_little_helpers.helpers import *
 from queue import PriorityQueue
+
+from santas_little_helpers.helpers import *
 
 data = get_input('inputs/15.txt')
 RISK_LEVELS = {(x, y): int(num) for x, row in enumerate(data) for y, num in enumerate(row)}

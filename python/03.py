@@ -1,6 +1,8 @@
+# Day 3: Binary Diagnostic
+
+from collections import Counter
 
 from santas_little_helpers.helpers import *
-from collections import Counter
 
 consumption = lambda x, y: int(x, 2) * int(y, 2)
 

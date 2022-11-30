@@ -1,6 +1,9 @@
-from santas_little_helpers.helpers import *
-from itertools import product, permutations
+# Day 19: Beacon Scanner
+
 from collections import Counter, defaultdict, deque
+from itertools import permutations, product
+
+from santas_little_helpers.helpers import *
 
 ROLL = [(1, 0, 0), (0, 0, -1), (0, 1, 0)]
 PITCH = [(0, 0, 1), (0, 1, 0), (-1, 0, 0)]

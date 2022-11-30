@@ -1,5 +1,5 @@
 # Day 12: Passage Pathing
-from santas_little_helpers import *
+
 from santas_little_helpers.helpers import *
 
 

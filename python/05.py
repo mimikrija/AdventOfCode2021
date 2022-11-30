@@ -1,8 +1,6 @@
 # Day 5: Hydrothermal Venture
 
-from santas_little_helpers import *
 from santas_little_helpers.helpers import *
-from collections import Counter
 
 data = get_input('inputs/05.txt')
 

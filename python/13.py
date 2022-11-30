@@ -1,7 +1,7 @@
 # Day 13: Transparent Origami
 
-from santas_little_helpers import *
 from santas_little_helpers.helpers import *
+
 
 def fold(coordinates, axis, axis_position):
     axis_position = int(axis_position)

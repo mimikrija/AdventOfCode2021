@@ -1,9 +1,9 @@
 # Day 17: Trick Shot
 
-from santas_little_helpers.helpers import *
-from santas_little_helpers.helpers import *
-from re import findall
 from itertools import product
+from re import findall
+
+from santas_little_helpers.helpers import *
 
 data = get_input('inputs/17.txt')[0]
 MIN_X, MAX_X, MIN_Y, MAX_Y = map(int, findall(r'-?\d+', data))
