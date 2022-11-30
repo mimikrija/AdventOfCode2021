@@ -18,4 +18,10 @@ def find_fuel(crab_data):
 
 crab_data = get_input('inputs/07.txt', True,',')
 
-print_solutions(*find_fuel(crab_data))
+print_solutions(*(parties := find_fuel(crab_data)))
+party_1, party_2 = parties
+
+def test_one():
+    assert party_1 == 340056
+def test_two():
+    assert party_2 == 96592275

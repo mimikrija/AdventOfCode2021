@@ -41,3 +41,8 @@ count_pairs_parts = (pairs_after_steps(polymer_template, pair_generation, steps)
 party_1, party_2 = (count_elements(count_pairs, polymer_template) for count_pairs in count_pairs_parts)
 print_solutions(party_1, party_2)
 
+
+def test_one():
+    assert party_1 == 2590
+def test_two():
+    assert party_2 == 2875665202438

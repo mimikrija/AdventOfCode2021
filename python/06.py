@@ -19,3 +19,8 @@ def fish_count(days, in_fish):
 
 party_1, party_2 = (fish_count(days, fish_data) for days in (80, 256))
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 380243
+def test_two():
+    assert party_2 == 1708791884591

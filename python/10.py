@@ -41,3 +41,8 @@ scores = [calculate_score(remaining) for remaining in completion_strings]
 party_2 = sorted(scores)[len(scores)//2]
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 290691
+def test_two():
+    assert party_2 == 2768166558

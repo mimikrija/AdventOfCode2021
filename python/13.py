@@ -24,10 +24,19 @@ def solve(coordinates, instructions):
             party_1 = len(coordinates)
     print_solutions(party_1)
     print_from_set(coordinates)
+    return(party_1)
 
 
 coordinates, instructions = get_input('inputs/13.txt', False, '\n\n')
 coordinates = {tuple(int(line.split(',')[n]) for n in (0, 1)) for line in coordinates.split('\n')}
 instructions = [line.split()[2].split('=') for line in instructions.split('\n')]
 
-solve(coordinates, instructions)
+party_1 = solve(coordinates, instructions)
+
+party_2 = 'EPZGKCHU'
+
+
+def test_one():
+    assert party_1 == 837
+def test_two():
+    assert party_2 == 'EPZGKCHU'

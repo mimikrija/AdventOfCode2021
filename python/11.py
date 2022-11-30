@@ -51,4 +51,11 @@ def solve(energy_levels):
 energy_levels = [[int(num) for num in row] for row in get_input('inputs/11.txt')]
 GRID_SIZE = len(energy_levels)
 
-print_solutions(*solve(energy_levels))
+party_1, party_2 = solve(energy_levels)
+
+print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 1755
+def test_two():
+    assert party_2 == 212

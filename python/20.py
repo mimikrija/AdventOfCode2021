@@ -41,3 +41,8 @@ party_1 = lights_on(lights, 2)
 party_2 = lights_on(lights, 50)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 5819
+def test_two():
+    assert party_2 == 18516

@@ -140,3 +140,8 @@ party_1 = solve_homework(snail_homework)
 party_2 = max_result(snail_homework)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 3411
+def test_two():
+    assert party_2 == 4680

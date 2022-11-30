@@ -48,3 +48,8 @@ ends = (tuple(n*GRID_SIZE-1 for _ in range(2)) for n in (1, 5))
 
 party_1, party_2 = (find_cheapest_path(start, end) for end in ends)
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 410
+def test_two():
+    assert party_2 == 2809

@@ -40,3 +40,8 @@ bingo_cards = [Card(raw_card) for raw_card in data[1:]]
 party_1, party_2 = play_bingo(bingo_cards, numbers_to_draw)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 27027
+def test_two():
+    assert party_2 == 36975

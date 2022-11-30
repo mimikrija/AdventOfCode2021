@@ -100,3 +100,8 @@ party_1, distances = get_unique_coordinates(scanners)
 party_2 = max(manhattan(first, second) for first, second in permutations(distances, r=2))
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 419
+def test_two():
+    assert party_2 == 13210

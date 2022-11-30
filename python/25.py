@@ -63,3 +63,6 @@ while True:
     old_east = set(new_east)
     old_south = set(new_south)
     count += 1
+
+def test_one():
+    assert count == 579

@@ -63,3 +63,8 @@ data = deque([to_binary(line) for line in get_input('inputs/16.txt')][0])
 
 party_1, party_2 = read_packet(data, [])
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 979
+def test_two():
+    assert party_2 == 277110354175

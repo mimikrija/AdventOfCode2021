@@ -46,3 +46,8 @@ for line in data:
 party_1, party_2 = (count_overlaps(end_points, diagonals) for diagonals in (False, True))
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 6687
+def test_two():
+    assert party_2 == 19851

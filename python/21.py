@@ -79,3 +79,8 @@ start_game = (initial_positions, initial_scores, False, 1)
 party_2 = play_game(start_game)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 671580
+def test_two():
+    assert party_2 == 912857726749764

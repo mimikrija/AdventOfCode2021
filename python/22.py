@@ -84,3 +84,8 @@ party_1 = switched_on(cuboids[:20])
 party_2 = switched_on(cuboids)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 596598
+def test_two():
+    assert party_2 == 1199121349148621

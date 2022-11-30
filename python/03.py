@@ -44,3 +44,8 @@ oxygen = scrubox(data, 'least')
 party_2 = consumption(scrubber, oxygen)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 3242606
+def test_two():
+    assert party_2 == 4856080

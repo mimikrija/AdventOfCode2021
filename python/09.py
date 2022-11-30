@@ -54,3 +54,8 @@ party_1 = sum(cave_heights[low_point]+1 for low_point in lowpoints)
 party_2 = part_2(lowpoints, cave_floor, cave_heights)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 475
+def test_two():
+    assert party_2 == 1092012

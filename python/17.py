@@ -58,3 +58,8 @@ party_1 = highest_point_of_all(initial_velocities)
 party_2 = len(initial_velocities)
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 5995
+def test_two():
+    assert party_2 == 3202

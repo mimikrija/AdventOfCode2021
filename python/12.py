@@ -29,6 +29,11 @@ def find_all_paths(edges, start, end, part2=False):
 edges = [set(line.split('-')) for line in get_input('inputs/12.txt')]
 allowed_only_once = {point for edge in edges for point in edge if not point.isupper()}
 
-solutions = (len(find_all_paths(edges, 'start', 'end', is_part_2)) for is_part_2 in (False, True))
+party_1, party_2 = (len(find_all_paths(edges, 'start', 'end', is_part_2)) for is_part_2 in (False, True))
 
-print_solutions(*solutions)
+print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 4495
+def test_two():
+    assert party_2 == 131254

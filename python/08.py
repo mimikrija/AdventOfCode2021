@@ -81,3 +81,8 @@ for patterns, digits in displays:
 
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 449
+def test_two():
+    assert party_2 == 968175

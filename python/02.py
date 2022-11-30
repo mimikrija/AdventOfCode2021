@@ -27,3 +27,8 @@ instructions = [(line.split()[0], int(line.split()[1])) for line in raw_instruct
 party_1, party_2 = (solution_format(find_position(instructions, is_part_2)) for is_part_2 in {False, True})
 
 print_solutions(party_1, party_2)
+
+def test_one():
+    assert party_1 == 2187380
+def test_two():
+    assert party_2 == 2086357770
